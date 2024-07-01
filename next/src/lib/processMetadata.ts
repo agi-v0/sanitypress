@@ -8,7 +8,7 @@ export default async function processMetadata(
 	const site = await getSite()
 
 	const url = processUrl(page)
-	const { title, description, ogimage, noIndex } = page.metadata
+	const { title, description, ogimage, noIndex } = page?.metadata
 
 	return {
 		metadataBase: new URL(BASE_URL),

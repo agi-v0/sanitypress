@@ -57,7 +57,7 @@ export default defineType({
 			price: 'price',
 		},
 		prepare: ({ title, price }) => {
-			console.log(price)
+			// console.log(price)
 
 			return {
 				title,

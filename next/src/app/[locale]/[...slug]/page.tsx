@@ -5,14 +5,22 @@ import { notFound } from 'next/navigation'
 import Modules from '@/ui/modules'
 import processMetadata from '@/lib/processMetadata'
 
-export default async function Page({ params }: Props) {
-	const page = await getPage(params)
+export default async function Page({
+	params: { locale },
+}: {
+	params: { locale: string }
+}) {
+	const page = await getPage({ locale })
 	if (!page) notFound()
 	return <Modules modules={page?.modules} page={page} />
 }
 
-export async function generateMetadata({ params }: Props) {
-	const page = await getPage(params)
+export async function generateMetadata({
+	params: { locale },
+}: {
+	params: { locale: string }
+}) {
+	const page = await getPage({ locale })
 	if (!page) notFound()
 	return processMetadata(page)
 }
@@ -29,11 +37,11 @@ export async function generateStaticParams() {
 	return slugs.map((slug) => ({ slug: slug.split('/') }))
 }
 
-async function getPage(params: Props['params']) {
+async function getPage({ params, locale }: any) {
 	return await fetchSanity<Sanity.Page>(
 		groq`*[
 			_type == 'page' &&
-			metadata.slug.current == $slug &&
+			metadata.slug.current == ${locale} &&
 			!(metadata.slug.current in ['index', '404'])
 		][0]{
 			...,

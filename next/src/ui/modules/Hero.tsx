@@ -5,6 +5,7 @@ import Pretitle from '@/ui/Pretitle'
 import { cn } from '@/lib/utils'
 import { stegaClean } from '@sanity/client/stega'
 import css from './Hero.module.css'
+import { useTranslations } from 'next-intl'
 
 export default function Hero({
 	pretitle,
@@ -24,6 +25,8 @@ export default function Hero({
 	alignItems: React.CSSProperties['alignItems']
 }>) {
 	const hasImage = !!bgImage?.asset
+
+	const t = useTranslations("Index")
 
 	return (
 		<section
@@ -45,7 +48,7 @@ export default function Hero({
 			)}
 
 			{content && (
-				<div className="section flex w-full flex-col">
+				<div className="section h-screen flex w-full flex-col">
 					<div
 						className={cn(
 							'richtext relative isolate max-w-xl [&_:is(h1,h2)]:text-balance',
@@ -64,6 +67,7 @@ export default function Hero({
 						)}
 						style={{ textAlign: stegaClean(textAlign) }}
 					>
+						<div>{t("Translated Text")}</div>
 						<Pretitle className={cn(hasImage && 'text-canvas/70')}>
 							{pretitle}
 						</Pretitle>

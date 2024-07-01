@@ -13,7 +13,7 @@ import { vercelWidget } from 'sanity-plugin-dashboard-widget-vercel'
 import { visionTool } from '@sanity/vision'
 import { codeInput } from '@sanity/code-input'
 import { schemaTypes } from './schemas'
-import {documentInternationalization} from '@sanity/document-internationalization'
+import { documentInternationalization } from '@sanity/document-internationalization'
 
 const singletonTypes = ['site']
 
@@ -21,7 +21,7 @@ export default defineConfig({
 	name: 'default',
 	title: 'SanityPress',
 
-	projectId,
+	projectId: "vjcvvsga",
 	dataset: 'random-testing',
 
 	plugins: [
@@ -45,13 +45,13 @@ export default defineConfig({
 		visionTool({ title: 'GROQ' }),
 		codeInput(),
 		documentInternationalization({
-      // Required configuration
-      supportedLanguages: [
-        {id: 'ar', title: 'Arabic'},
-        {id: 'en', title: 'English'}
-      ],
-      schemaTypes: ['site','page'],
-    })
+			// Required configuration
+			supportedLanguages: [
+				{ id: 'ar', title: 'Arabic' },
+				{ id: 'en', title: 'English' }
+			],
+			schemaTypes: ['site', 'page'],
+		})
 	],
 
 	scheduledPublishing: {
@@ -70,10 +70,10 @@ export default defineConfig({
 		actions: (input, { schemaType }) =>
 			singletonTypes.includes(schemaType)
 				? input.filter(
-						({ action }) =>
-							action &&
-							['publish', 'discardChanges', 'restore'].includes(action),
-					)
+					({ action }) =>
+						action &&
+						['publish', 'discardChanges', 'restore'].includes(action),
+				)
 				: input,
 	},
 })

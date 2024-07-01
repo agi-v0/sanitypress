@@ -2,7 +2,6 @@ import { fetchSanity, groq } from '@/lib/sanity/fetch'
 import { modulesQuery } from '@/lib/sanity/queries'
 import Modules from '@/ui/modules'
 import processMetadata from '@/lib/processMetadata'
-import {useTranslations} from 'next-intl';
 
 export default async function Page({
 	params: { locale },
@@ -24,9 +23,9 @@ export async function generateMetadata({
 }
 
 async function getPage(locale: string) {
-	console.log(locale)
+	console.log("my local is ",locale)
 	const page = await fetchSanity<Sanity.Page>(
-		groq`*[_type == 'page' && language == ${locale} && metadata.slug.current == 'index' ][0]{
+		groq`*[_type == 'page' && metadata.slug.current == "${locale}" ][0]{
 			...,
 			modules[]{ ${modulesQuery} },
 			metadata {

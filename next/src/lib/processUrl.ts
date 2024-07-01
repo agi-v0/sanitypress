@@ -12,9 +12,9 @@ export default function (
 		params?: string
 	} = {},
 ) {
-	const directory = page._type === 'blog.post' ? 'blog' : null
+	const directory = page?._type === 'blog.post' ? 'blog' : null
 
-	const slug = page.metadata?.slug?.current
+	const slug = page?.metadata?.slug?.current
 	const path = slug === 'index' ? null : slug
 
 	return (

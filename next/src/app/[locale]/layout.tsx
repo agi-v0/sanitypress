@@ -26,6 +26,7 @@ export default async function RootLayout({
 	params: {locale: string};
 }) {
 	const messages = await getMessages();
+
 	return (
 		<html lang={locale}>
 			{/* <GoogleTagManager gtmId='' /> */}
