@@ -9,6 +9,8 @@ import { VisualEditing } from 'next-sanity'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import '@/styles/app.css'
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
 
 export const metadata: Metadata = {
 	icons: {
@@ -18,14 +20,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
 	children,
+	params: {locale}
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
+	params: {locale: string};
 }) {
+	const messages = await getMessages();
 	return (
-		<html>
+		<html lang={locale}>
 			{/* <GoogleTagManager gtmId='' /> */}
 
 			<body className="bg-canvas text-ink">
+				<NextIntlClientProvider messages={messages}>
 				<SkipToContent />
 				<Announcement />
 				<Header />
@@ -37,6 +43,7 @@ export default async function RootLayout({
 				<Analytics />
 				<SpeedInsights />
 				{draftMode().isEnabled && <VisualEditing />}
+        </NextIntlClientProvider>
 			</body>
 		</html>
 	)
