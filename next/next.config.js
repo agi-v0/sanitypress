@@ -3,7 +3,7 @@ const groq = require('groq')
 
 const client = createClient({
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-	dataset: 'production',
+	dataset: 'random-testing',
 	apiVersion: '2024-05-01',
 	useCdn: true,
 })

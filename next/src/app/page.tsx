@@ -15,7 +15,7 @@ export async function generateMetadata() {
 
 async function getPage() {
 	const page = await fetchSanity<Sanity.Page>(
-		groq`*[_type == 'page' && metadata.slug.current == 'index'][0]{
+		groq`*[_type == 'page' && language == 'ar' && metadata.slug.current == 'index' ][0]{
 			...,
 			modules[]{ ${modulesQuery} },
 			metadata {

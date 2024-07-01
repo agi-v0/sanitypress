@@ -4,6 +4,6 @@ import { projectId } from './src/env'
 export default defineCliConfig({
 	api: {
 		projectId,
-		dataset: 'production',
+		dataset: 'random-testing',
 	},
 })

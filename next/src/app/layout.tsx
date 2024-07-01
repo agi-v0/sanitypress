@@ -22,7 +22,7 @@ export default async function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html lang="en">
+		<html>
 			{/* <GoogleTagManager gtmId='' /> */}
 
 			<body className="bg-canvas text-ink">

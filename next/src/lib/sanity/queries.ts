@@ -17,7 +17,7 @@ const navigationQuery = groq`
 export async function getSite() {
 	const site = await fetchSanity<Sanity.Site>(
 		groq`
-			*[_type == 'site'][0]{
+			*[_type == 'site' && language == 'en'][0]{
 				...,
 				ctas[]{
 					...,
