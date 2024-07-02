@@ -23,9 +23,9 @@ export async function generateMetadata({
 }
 
 async function getPage(locale: string) {
-	console.log("my local is ",locale)
+	console.log("my local is", locale)
 	const page = await fetchSanity<Sanity.Page>(
-		groq`*[_type == 'page' && metadata.slug.current == "${locale}" ][0]{
+		groq`*[_type == 'page' && metadata.slug.current == "index" && language == '${locale}'][0]{
 			...,
 			modules[]{ ${modulesQuery} },
 			metadata {
