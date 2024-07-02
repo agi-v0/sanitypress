@@ -5,22 +5,18 @@ import { notFound } from 'next/navigation'
 import Modules from '@/ui/modules'
 import processMetadata from '@/lib/processMetadata'
 
-export default async function Page({
-	params: { locale },
-}: {
-	params: { locale: string }
-}) {
-	const page = await getPage({ locale })
+export default async function Page({ params }: { params: { locale: string } }) {
+	const page = await getPage({ params })
 	if (!page) notFound()
 	return <Modules modules={page?.modules} page={page} />
 }
 
 export async function generateMetadata({
-	params: { locale },
+	params,
 }: {
 	params: { locale: string }
 }) {
-	const page = await getPage({ locale })
+	const page = await getPage({ params })
 	if (!page) notFound()
 	return processMetadata(page)
 }
@@ -37,11 +33,10 @@ export async function generateStaticParams() {
 	return slugs.map((slug) => ({ slug: slug.split('/') }))
 }
 
-async function getPage({ params, locale }: any) {
+async function getPage({ params }: any) {
 	return await fetchSanity<Sanity.Page>(
-		groq`*[
-			_type == 'page' &&
-			metadata.slug.current == ${locale} &&
+		groq`*[_type == 'page' &&
+			metadata.slug.current == $slug && language == $locale &&
 			!(metadata.slug.current in ['index', '404'])
 		][0]{
 			...,
@@ -52,7 +47,7 @@ async function getPage({ params, locale }: any) {
 			}
 		}`,
 		{
-			params: { slug: params.slug?.join('/') },
+			params: { slug: params.slug?.join('/'), locale: params.locale },
 			tags: ['pages'],
 		},
 	)
